@@ -1,0 +1,19 @@
+ORCLSTAN =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = oracledbstandserver.mshome.net)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SERVICE_NAME = orclstan)
+    )
+  )
+
+ORCLPROD =
+  (DESCRIPTION =
+    (ADDRESS_LIST =
+      (ADDRESS = (PROTOCOL = TCP)(HOST = oracledbprodserver.mshome.net)(PORT = 1521))
+    )
+    (CONNECT_DATA =
+      (SID = orcl)
+    )
+  )

@@ -1,0 +1,51 @@
+orcl.__data_transfer_cache_size=0
+orcl.__db_cache_size=536870912
+orcl.__inmemory_ext_roarea=0
+orcl.__inmemory_ext_rwarea=0
+orcl.__java_pool_size=16777216
+orcl.__large_pool_size=50331648
+orcl.__oracle_base='C:\OracleDB'#ORACLE_BASE set from environment
+orcl.__pga_aggregate_target=704643072
+orcl.__sga_target=1023410176
+orcl.__shared_io_pool_size=50331648
+orcl.__shared_pool_size=352321536
+orcl.__streams_pool_size=0
+orcl.__unified_pga_pool_size=0
+*.audit_file_dest='C:\OracleDB\admin\orcl\adump'
+*.audit_trail='db'
+*.compatible='19.0.0'
+*.control_files='C:\OracleDB\oradata\ORCL\control01.ctl','C:\OracleDB\oradata\ORCL\control02.ctl'
+*.db_block_size=8192
+*.db_domain='mshome.net'
+*.db_name='oracledb'
+*.db_unique_name='oracledbprod'
+*.diagnostic_dest='C:\OracleDB'
+*.dispatchers='(PROTOCOL=TCP) (SERVICE=orclXDB)'
+*.enable_pluggable_database=true
+*.fal_client='oracledbprod'
+*.fal_server='oracledbstan'
+*.local_listener='LISTENER_ORCL'
+*.log_archive_config='dg_config=(oracledbprod,oracledbstan)'
+*.log_archive_dest_1='SERVICE=oracledbstan LGWR ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) db_unique_name=oracledbstan'
+*.log_archive_dest_2='LOCATION=C:\OracleDB\oradata\ORCL\archive VALID_FOR=(ALL_LOGFILES,ALL_ROLES) db_unique_name=oracledbprod'
+*.log_archive_dest_state_1='ENABLE'
+*.log_archive_dest_state_2='ENABLE'
+*.memory_target=1638m
+*.nls_language='RUSSIAN'
+*.nls_territory='RUSSIA'
+*.open_cursors=300
+*.processes=640
+*.remote_login_passwordfile='EXCLUSIVE'
+*.standby_file_management='AUTO'
+*.undo_tablespace='UNDOTBS1'
+
+db_name='orcl'
+db_unique_name='orclstan'
+log_archive_config='dg_config=(orclprod,orclstan)'
+log_archive_dest_1='SERVICE=orclprod LGWR ASYNC VALID_FOR=(ONLINE_LOGFILES,PRIMARY_ROLE) db_unique_name=orclprod'
+log_archive_dest_2='LOCATION=C:\OracleDB\oradata\ORCL\archive VALID_FOR=(ALL_LOGFILES,ALL_ROLES) db_unique_name=orclstan'
+log_archive_dest_state_1=ENABLE
+log_archive_dest_state_2=ENABLE
+fal_client='orclstan'
+fal_server='orclprod'
+standby_file_management='AUTO'

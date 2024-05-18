@@ -1,0 +1,109 @@
+-- [PROD] Archivelog
+SQL> select name, open_mode, log_mode from v$database;
+-- if no archivelog
+SQL> shutdown immediate;
+SQL> startup mount;
+SQL> alter database archivelog;
+SQL> alter database open;
+
+
+
+-- [PROD] Password file
+SQL> select * from v$pwfile_users;
+-- if no 'SYS TRUE TRUE'
+$ orapwd file=$ORACLE_HOME/dbs/orapw$ORACLE_SID password=[CurrentPassword] force=y
+
+
+
+-- [PROD] Force logging
+SQL> alter database force logging;
+
+
+
+-- [PROD] Standby redo logs
+SQL> select bytes from v$log;
+SQL> select group# from v$logfile;
+SQL> alter database add standby logfile group 4 'C:\OracleDB\oradata\ORCL\stnbylog01.log' size 200m;
+SQL> alter database add standby logfile group 5 'C:\OracleDB\oradata\ORCL\stnbylog02.log' size 200m;
+SQL> alter database add standby logfile group 6 'C:\OracleDB\oradata\ORCL\stnbylog03.log' size 200m;
+
+
+
+-- [PROD] Set spfile
+SQL> shutdown immediate;
+SQL> startup nomount pfile='C:\data\pfilePROD.ora';
+SQL> create spfile from pfile='C:\data\pfilePROD.ora';
+SQL> shutdown immediate;
+SQL> startup;
+
+
+
+-- [PROD] Backups
+$ rman target /
+RMAN> backup current controlfile for standby format 'C:\data\backup\standbycontrol.ctl';
+RMAN> run
+2> {
+3> allocate channel c1 device type disk format 'C:\data\backup\%u';
+4> backup database plus archivelog;
+5> }
+
+
+
+-- [STAN] Set spfile
+SQL> shutdown immediate;
+SQL> startup nomount pfile='C:\data\pfileSTAN.ora';
+SQL> create spfile from pfile='C:\data\pfileSTAN.ora';
+SQL> shutdown immediate;
+SQL> startup nomount;
+
+
+
+-- [PROD] Deploy standby from backup
+$ rman target /
+RMAN> connect auxiliary sys@orclstan
+RMAN> duplicate target database for standby nofilenamecheck dorecover;
+
+
+
+-- [PROD] Check archive log number
+SQL> alter system switch logfile;
+SQL> select max(sequence#) from v$archived_log;
+
+
+
+-- [STAN] Check standby state
+SQL> select name, open_mode, log_mode from v$database;
+SQL> select recovery_mode from v$archive_dest_status;
+-- 'IDLE'
+SQL> select max(sequence#) from v$log_history;
+-- not equals to prod
+
+
+
+-- [STAN] Standby redo logs
+SQL> select * from v$standby_log;
+-- if no standby logs
+SQL> alter database add standby logfile group 4 'C:\OracleDB\oradata\ORCL\stnbylog01.log' size 200m;
+SQL> alter database add standby logfile group 5 'C:\OracleDB\oradata\ORCL\stnbylog02.log' size 200m;
+SQL> alter database add standby logfile group 6 'C:\OracleDB\oradata\ORCL\stnbylog03.log' size 200m;
+
+
+
+-- [STAN] Turn standby into Real-time apply redo mode
+SQL> alter database recover managed standby database using current logfile disconnect;
+
+
+
+-- [STAN] Check standby state
+SQL> select recovery_mode from v$archive_dest_status;
+-- 'MANAGED REAL TIME APPLY'
+SQL> select max(sequence#) from v$log_history;
+-- equals to prod
+
+
+
+-- [PROD] Troubleshooting
+SQL> alter database recover managed standby database cancel;
+-- copy files from prod to stand (C:\OracleDB\oradata\ORCL\archive)
+SQL> recover standby database;
+SQL> alter database recover managed standby database using current logfile disconnect;

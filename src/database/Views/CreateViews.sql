@@ -1,0 +1,163 @@
+---------- EXECUTE AS DEVELOPER ----------
+
+
+---------- USERS DATA ----------
+
+---------- ROLES VIEW ----------
+CREATE VIEW V_ROLES
+AS
+SELECT
+    ROLE_ID     ID,
+    ROLE_NAME   NAME
+FROM
+    ROLES
+;
+
+---------- USERS VIEW ----------
+CREATE VIEW V_USERS
+AS
+SELECT
+    USER_ID         ID,
+    USER_NAME       NAME,
+    USER_EMAIL      EMAIL,
+    USER_ROLE_ID    ROLE_ID,
+    USER_AVATAR     AVATAR
+FROM 
+    USERS
+;
+
+
+---------- GAMES DATA ----------
+
+---------- GENRES VIEW ----------
+CREATE VIEW V_GENRES
+AS
+SELECT
+    GENRE_ID    ID,
+    GENRE_NAME  NAME
+FROM
+    GENRES
+;
+
+---------- DEVELOPERS VIEW ----------
+CREATE VIEW V_DEVELOPERS
+AS
+SELECT
+    DEVELOPER_ID    ID,
+    DEVELOPER_NAME  NAME
+FROM
+    DEVELOPERS
+;
+
+---------- PUBLISHERS VIEW ----------
+CREATE VIEW V_PUBLISHERS
+AS
+SELECT
+    PUBLISHER_ID    ID,
+    PUBLISHER_NAME  NAME
+FROM
+    PUBLISHERS
+;
+
+---------- GAMES VIEW ----------
+CREATE VIEW V_GAMES
+AS
+SELECT
+    GAME_ID             ID,
+    GAME_TITLE          TITLE,
+    GAME_PRICE          PRICE,
+    GAME_SCORE          SCORE,
+    GAME_AGE_LIMIT      AGE_LIMIT,
+    GAME_RELEASE_DATE   RELEASE_DATE,
+    GAME_DESCRIPTION    DESCRIPTION,
+    GAME_POSTER         POSTER,
+    GAME_COVER          COVER
+FROM
+    GAMES
+;
+
+---------- SCREENSHOTS VIEW ----------
+CREATE VIEW V_SCREENSHOTS
+AS
+SELECT
+    ID          ID,
+    GAME_ID     GAME_ID,
+    SCREENSHOT  SCREENSHOT
+FROM
+    SCREENSHOTS
+;
+
+---------- GMS_GNRS VIEW ----------
+CREATE VIEW V_GMS_GNRS
+AS
+SELECT
+    GAME_ID     GAME_ID,
+    GENRE_ID    GENRE_ID
+FROM
+    GMS_GNRS
+;
+
+---------- GMS_DVLS VIEW ----------
+CREATE VIEW V_GMS_DVLS
+AS
+SELECT
+    GAME_ID         GAME_ID,
+    DEVELOPER_ID    DEVELOPER_ID
+FROM
+    GMS_DVLS
+;
+
+---------- GMS_PBLS VIEW ----------
+CREATE VIEW V_GMS_PBLS
+AS
+SELECT
+    GAME_ID         GAME_ID,
+    PUBLISHER_ID    PUBLISHER_ID
+FROM
+    GMS_PBLS
+;
+
+
+---------- LISTS DATA ----------
+
+---------- WISHLISTS VIEW ----------
+CREATE VIEW V_WISHLISTS
+AS
+SELECT
+    USER_ID     USER_ID,
+    GAME_ID     GAME_ID
+FROM
+    WISHLISTS
+;
+
+---------- CARTS VIEW ----------
+CREATE VIEW V_CARTS
+AS
+SELECT
+    USER_ID     USER_ID,
+    GAME_ID     GAME_ID
+FROM
+    CARTS
+;
+
+---------- LIBRARIES VIEW ----------
+CREATE VIEW V_LIBRARIES
+AS
+SELECT
+    USER_ID     USER_ID,
+    GAME_ID     GAME_ID,
+    FAVORITE    FAVORITE
+FROM
+    LIBRARIES
+;
+
+---------- RATINGS VIEW ----------
+CREATE VIEW V_RATINGS
+AS
+SELECT
+    USER_ID     USER_ID,
+    GAME_ID     GAME_ID,
+    RATING      RATING
+FROM
+    RATINGS
+;
